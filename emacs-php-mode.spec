@@ -3,9 +3,10 @@
 
 Summary: Major mode for editing PHP code
 Name:  emacs-%{rname}
-Version: 102
-Release: 6mdk
-Source0: http://prdownloads.sourceforge.net/php-mode/%{rname}-%{version}.el
+Version: 1.2.0
+Release: %mkrel 1
+Epoch: 1
+Source0: http://prdownloads.sourceforge.net/php-mode/%{rname}-%{version}.tar.bz2
 URL: http://php-mode.sourceforge.net/
 License: GPL
 Group: Editors
@@ -19,17 +20,14 @@ BuildArch:     noarch
 Major mode for editing PHP code
 
 %prep
-%setup -c -T
-install -m644 %SOURCE0 %rname.el
+%setup -q -c
+perl -n -e 'print if /^;;; Usage/ .. /^;;; Code/' < %{rname}.el > DOCUMENTATION
 
 %build
 for i in %flavor; do
 $i -batch -q -no-site-file -f batch-byte-compile %{rname}.el 
 mv %{rname}.elc $i-%{rname}.elc
 done
-
-#Maybe need adjust
-perl -n -e 'last if /^\(/;last if /^;;; Code/; print' < %SOURCE0 > DOCUMENTATION
 
 %install
 rm -rf $RPM_BUILD_ROOT
