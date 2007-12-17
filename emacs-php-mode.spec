@@ -10,7 +10,6 @@ Source0: http://prdownloads.sourceforge.net/php-mode/%{rname}-%{version}.tar.bz2
 URL: http://php-mode.sourceforge.net/
 License: GPL
 Group: Editors
-BuildRoot: %_tmppath/%{name}-buildroot
 BuildRequires: %{flavor}
 BuildRequires: perl
 BuildRequires: emacs-bin
