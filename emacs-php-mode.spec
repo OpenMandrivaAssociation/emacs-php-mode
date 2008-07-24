@@ -1,44 +1,44 @@
 %define rname php-mode
-%define flavor emacs
 
 Summary: Major mode for editing PHP code
-Name:  emacs-%{rname}
-Version: 1.2.0
-Release: %mkrel 3
-Epoch: 1
-Source0: http://prdownloads.sourceforge.net/php-mode/%{rname}-%{version}.tar.bz2
+Name:  	 emacs-%{rname}
+Version: 1.4.0
+Release: %mkrel 1
+Source0: http://prdownloads.sourceforge.net/php-mode/%{rname}-%{version}.tar.lzma
 URL: http://php-mode.sourceforge.net/
-License: GPL
-Group: Editors
+License: GPLv3+
+Group: 	 Editors
 BuildRoot: %_tmppath/%{name}-buildroot
-BuildRequires: %{flavor}
-BuildRequires: perl
-BuildRequires: emacs-bin
+Requires: emacs >= 22.0
+BuildRequires: emacs >= 22.0, texinfo
 BuildArch:     noarch	
 
-%description
-Major mode for editing PHP code
+%description 
+PHP mode is a major Emacs mode for editing PHP 3 and 4 source code. As
+it is an extension of the C mode, it inherits all of that mode's
+navigation functionality. It's syntax highlighting colors code
+according to PHP's grammar, however, and indents it according to the
+PEAR coding guidelines. The mode also includes a couple of handy
+IDE features such as documentation search and a source and class
+browser.
 
 %prep
-%setup -q -c
-perl -n -e 'print if /^;;; Usage/ .. /^;;; Code/' < %{rname}.el > DOCUMENTATION
+%setup -q -n %{rname}-%{version}
 
 %build
-for i in %flavor; do
-$i -batch -q -no-site-file -f batch-byte-compile %{rname}.el 
-mv %{rname}.elc $i-%{rname}.elc
-done
+emacs -batch -q -no-site-file -f batch-byte-compile %{rname}.el 
+make %{rname}.info
 
 %install
-rm -rf $RPM_BUILD_ROOT
+%__rm -rf %{buildroot}
 
-for i in %flavor; do
-mkdir -p %buildroot%{_datadir}/$i/site-lisp/
-install -m644 $i-%{rname}.elc %buildroot%_datadir/$i/site-lisp/%{rname}.elc
-[[ $i = emacs ]] && install -m644 %{rname}.el %buildroot%_datadir/emacs/site-lisp/
-done
+%__install -m 755 -d %{buildroot}%{_datadir}/emacs/site-lisp
+%__install -m 644 %{rname}.el* %{buildroot}%{_datadir}/emacs/site-lisp/
 
-install -d %buildroot%_sysconfdir/emacs/site-start.d
+%__install -m 755 -d %{buildroot}%{_infodir}
+%__install -m 644 %{rname}.info* %{buildroot}%{_infodir}
+
+%__install -m 755 -d %{buildroot}%{_sysconfdir}/emacs/site-start.d
 cat > %buildroot%_sysconfdir/emacs/site-start.d/%{name}.el << EOF
 ;; -*- Mode: Emacs-Lisp -*-
 ; Copyright (C) 2000 by Chmouel Boudjnah
@@ -51,12 +51,18 @@ cat > %buildroot%_sysconfdir/emacs/site-start.d/%{name}.el << EOF
 (setq auto-mode-alist (append '(("\\\\.php3?\\\\'" . %{rname})) auto-mode-alist))
 EOF
 
+%post
+%_install_info %rname
+
+%postun
+%_remove_install_info %rname
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+%__rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
-%doc DOCUMENTATION
+%doc ChangeLog
 %config(noreplace) /etc/emacs/site-start.d/%{name}.el
 %_datadir/*/site-lisp/*el*
+%_infodir/%rname.*
