@@ -1,18 +1,18 @@
-%define rname php-mode
+%define		rname php-mode
 
-Summary: Major mode for editing PHP code
-Name:  	 emacs-%{rname}
-Version: 1.4.0
-Release: %mkrel 1
-Epoch: 1
-Source0: http://prdownloads.sourceforge.net/php-mode/%{rname}-%{version}.tar.lzma
-URL: http://php-mode.sourceforge.net/
-License: GPLv3+
-Group: 	 Editors
-BuildRoot: %_tmppath/%{name}-buildroot
-Requires: emacs >= 22.0
-BuildRequires: emacs >= 22.0, texinfo
-BuildArch:     noarch	
+Summary:	Major mode for editing PHP code
+Name:		emacs-%{rname}
+Version:	1.5.0
+Release:	%mkrel 1
+Epoch:		1
+Source0:	http://prdownloads.sourceforge.net/php-mode/%{rname}-%{version}.tar.gz
+URL:		http://php-mode.sourceforge.net/
+License:	GPLv3+
+Group:		Editors
+BuildRoot:	%_tmppath/%{name}-%{release}-buildroot
+Requires:	emacs >= 22.0
+BuildRequires:	emacs >= 22.0, texinfo
+BuildArch:    	noarch	
 
 %description 
 PHP mode is a major Emacs mode for editing PHP 3 and 4 source code. As
