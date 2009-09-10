@@ -3,7 +3,7 @@
 Summary:	Major mode for editing PHP code
 Name:		emacs-%{rname}
 Version:	1.5.0
-Release:	%mkrel 1
+Release:	%mkrel 2
 Epoch:		1
 Source0:	http://prdownloads.sourceforge.net/php-mode/%{rname}-%{version}.tar.gz
 URL:		http://php-mode.sourceforge.net/
