@@ -3,13 +3,12 @@
 Summary:	Major mode for editing PHP code
 Name:		emacs-%{rname}
 Version:	1.5.0
-Release:	%mkrel 1
+Release:	2
 Epoch:		1
 Source0:	http://prdownloads.sourceforge.net/php-mode/%{rname}-%{version}.tar.gz
 URL:		http://php-mode.sourceforge.net/
 License:	GPLv3+
 Group:		Editors
-BuildRoot:	%_tmppath/%{name}-%{release}-buildroot
 Requires:	emacs >= 22.0
 BuildRequires:	emacs >= 22.0, texinfo
 BuildArch:    	noarch	
@@ -31,8 +30,6 @@ emacs -batch -q -no-site-file -f batch-byte-compile %{rname}.el
 make %{rname}.info
 
 %install
-%__rm -rf %{buildroot}
-
 %__install -m 755 -d %{buildroot}%{_datadir}/emacs/site-lisp
 %__install -m 644 %{rname}.el* %{buildroot}%{_datadir}/emacs/site-lisp/
 
@@ -52,17 +49,7 @@ cat > %buildroot%_sysconfdir/emacs/site-start.d/%{name}.el << EOF
 (setq auto-mode-alist (append '(("\\\\.php3?\\\\'" . %{rname})) auto-mode-alist))
 EOF
 
-%post
-%_install_info %rname
-
-%postun
-%_remove_install_info %rname
-
-%clean
-%__rm -rf %{buildroot}
-
 %files
-%defattr(-,root,root)
 %doc ChangeLog
 %config(noreplace) /etc/emacs/site-start.d/%{name}.el
 %_datadir/*/site-lisp/*el*
@@ -98,7 +85,7 @@ EOF
 * Fri Apr 29 2005 Thierry Vignaud <tvignaud@mandrakesoft.com> 102-6mdk
 - rebuild for new emacs
 
-* Wed Feb 26 2003 Götz Waschk <waschk@linux-mandrake.com> 102-5mdk
+* Wed Feb 26 2003 GÃ¶tz Waschk <waschk@linux-mandrake.com> 102-5mdk
 - remove xemacs file, included in xemacs package 
 - fix site-start file
 
@@ -124,7 +111,7 @@ EOF
 
 - remove useless prefix
 
-* Fri Jun 21 2002 Götz Waschk <waschk@linux-mandrake.com> 102-2mdk
+* Fri Jun 21 2002 GÃ¶tz Waschk <waschk@linux-mandrake.com> 102-2mdk
 - buildarch noarch
 - buildrequires emacs-bin
 
