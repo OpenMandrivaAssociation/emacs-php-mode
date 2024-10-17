@@ -7,7 +7,7 @@ Version:	1.13.1
 Release:	2
 Epoch:		1
 Source0:	http://sourceforge.net/projects/php-mode/files/php-mode/php-mode-%{version}.zip
-URL:		http://php-mode.sourceforge.net/
+URL:		https://php-mode.sourceforge.net/
 License:	GPLv3+
 Group:		Editors
 Requires:	emacs >= 22.0
