@@ -11,6 +11,7 @@ URL:		https://php-mode.sourceforge.net/
 License:	GPLv3+
 Group:		Editors
 Requires:	emacs >= 22.0
+BuildRequires:	make
 BuildRequires:	emacs >= 22.0, texinfo
 BuildArch:    	noarch	
 
